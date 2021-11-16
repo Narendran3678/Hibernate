@@ -1,4 +1,6 @@
  package com.hibernate;
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -46,10 +48,8 @@ public class MainApplication
 	}
 	public static void manyToOneAssociationCascadingTest(Session session)
 	{
-		Student student= session.get(Student.class, 24L);
+		Student student= session.get(Student.class, 48L);
 		LOGGER.info(student.toString());
-		student.setGuide(null);
-		session.delete(student);
 	}
 	public static void oneToOneAssociationInsert(Session session)
 	{
@@ -69,11 +69,16 @@ public class MainApplication
 	}
 	public static void oneToManyAssociationCascadingTest(Session session)
 	{
-		Guide guide = session.get(Guide.class, 48L);
-	//	Student student= session.get(Student.class, 47L);
+		Guide guide = session.get(Guide.class, 49L);
+		
+		Set<Student> stud= guide.getStudentSet();
+		LOGGER.info(guide.toString());
+		//LOGGER.info(String.valueOf(guide.getStudentSet().size()));// Lazy Fetch happened
+		
+		//Student student= session.get(Student.class, 47L);
 		//guide.setSalary(21000);
 		//guide.addStudent(student);
-		session.remove(guide);
+		//session.remove(guide);
 		
 	}
 	public static void manyToManyAssociation(Session session)
@@ -136,12 +141,12 @@ public class MainApplication
 			//manyToOneAssociationInsert(session);
 			//manyToOneAssociationCascadingTest(session);
 			//oneToManyAssociation(session);
-			//oneToManyAssociationCascadingTest(session);
+			oneToManyAssociationCascadingTest(session);
 			//oneToOneAssociationInsert(session);
 			//manyToManyAssociation(session);
 			//manyToManyAssociationUpdate(session);
 			//collectionInsert(session);
-			compositeKeys(session);
+			//compositeKeys(session);
 			
 			transacton.commit();	
 			//session.getTransaction().commit();
@@ -189,7 +194,7 @@ public class MainApplication
 	}
 	public static void main(String args[])
 	{
-		//hibernateNativeApi();
-		javaPersistenceAPI();
+		hibernateNativeApi();
+		//javaPersistenceAPI();
 	}
 }

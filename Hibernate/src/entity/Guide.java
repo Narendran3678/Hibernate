@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +28,7 @@ public class Guide {
 	@Column(name="salary")
 	private Integer salary;
 	
-	@OneToMany(mappedBy="guide",cascade= {CascadeType.PERSIST,CascadeType.REMOVE})
+	@OneToMany(mappedBy="guide",cascade= {CascadeType.PERSIST,CascadeType.REMOVE},fetch=FetchType.EAGER)
 	private Set<Student> studentSet= new HashSet<Student>();
 	
 	public Guide()
@@ -72,8 +73,7 @@ public class Guide {
 	
 	@Override
 	public String toString() {
-		return "Guide [id=" + id + ", staffId=" + staffId + ", name=" + name + ", salary=" + salary + ", studentSet="
-				+ studentSet + "]";
+		return "Guide [id=" + id + ", staffId=" + staffId + ", name=" + name + ", salary=" + salary + "]";
 	}
 	
 	
