@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 
 @Entity
 public class Guide {
@@ -28,7 +29,8 @@ public class Guide {
 	@Column(name="salary")
 	private Integer salary;
 	
-	@OneToMany(mappedBy="guide",cascade= {CascadeType.PERSIST,CascadeType.REMOVE},fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="guide",cascade= {CascadeType.PERSIST,CascadeType.REMOVE})
+	@OrderBy("name desc")
 	private Set<Student> studentSet= new HashSet<Student>();
 	
 	public Guide()
